@@ -23,7 +23,7 @@ Once this structure is replicated or cloned with these files, and Docker install
 We'll use the following simple PHP application to demonstrate everything:
 
 #### index.php
-```
+```php
 <h1>Hello Cloudreach!</h1>
 <h4>Attempting MySQL connection from php...</h4>
 <?php
@@ -48,7 +48,7 @@ This format has been around for a while in Dockerland and is now in version 3.6 
 This format allows for defining sets of services which make up an entire application. It allows you to define the dependencies for those services, networks, volumes, etc as code and as you roll into production, you can even specify deployment parameters on services which allow you to replicate, scale, update, and self-heal on Docker Swarm or even Kubernetes on the latest Docker for Mac or Docker Enterprise Edition!
 
 #### docker-compose.yml
-```
+```yml
 version: "3.2"
 services:
   php:
@@ -107,7 +107,7 @@ A perfect example is decoupling Apache and PHP by building them out into separat
 The following simple Dockerfiles are what we're using in this example to build a decoupled Apache and PHP envivonment:
 
 #### apache/Dockerfile
-```
+```yml
 FROM httpd:2.4.33-alpine
 
 RUN apk update; \
@@ -120,7 +120,7 @@ RUN echo "Include /usr/local/apache2/conf/demo.apache.conf" \
 ```
 
 #### php/Dockerfile
-```
+```yml
 FROM php:7.2.7-fpm-alpine3.7
 
 RUN apk update; \
