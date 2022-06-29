@@ -79,9 +79,10 @@ services:
     container_name: apache
   mysql:
     image: mysql:${MYSQL_VERSION:-latest}
+    container_name: mysql
     restart: always
     ports:
-      - "3306:3306"
+      - "6033:3306"
     volumes:
             - data:/var/lib/mysql
     networks:
@@ -91,7 +92,21 @@ services:
       MYSQL_DATABASE: "${DB_NAME}"
       MYSQL_USER: "${DB_USERNAME}"
       MYSQL_PASSWORD: "${DB_PASSWORD}"
-    container_name: mysql
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    links:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    networks:
+      - backend
 networks:
   frontend:
   backend:
